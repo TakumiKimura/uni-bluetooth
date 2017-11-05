@@ -35,7 +35,7 @@ android.libraryVariants.all { variant ->
     }
 }
 
-task exportAar(type: Copy, dependsOn: "assembleRelease")  {
+task exportJar(type: Copy, dependsOn: "assembleRelease")  {
     from('build/intermediates/bundles/release/')
     into('../../Assets/Plugins/Android/')
     include('classes.jar')
