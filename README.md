@@ -1,5 +1,7 @@
 # uni-bluetooth  
-Unity iOS/Androidで使えるBluetooth Plugin(予定)  
+Unity Androidで使えるBluetooth Plugin(予定)  
 
-予定：まずはAndroidでJsonを相互通信できるまで。その次にiOS。  
+予定：まずはAndroid Serial通信でJsonの送受信ができるまで。
+
+BLEはきちんと調べてないから分かんない（´(ｪ)｀）
 
