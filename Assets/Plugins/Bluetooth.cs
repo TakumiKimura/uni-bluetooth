@@ -13,7 +13,10 @@ public static class Bluetooth
     const string FUNC_NAME_INIT = "init";
     const string FUNC_NAME_CONNECT = "connect";
     const string FUNC_NAME_WRITE = "write";
+    const string FUNC_NAME_READ = "read";
     const string FUNC_NAME_CLOSE = "close";
+
+    static AndroidJavaClass s_javaClass = new AndroidJavaClass(JAVA_CLASS_NAME);
 #endif
 
 #if UNITY_IOS
@@ -30,10 +33,7 @@ public static class Bluetooth
     public static string Init()
     {
 #if UNITY_ANDROID
-        using (AndroidJavaClass javaClass = new AndroidJavaClass(JAVA_CLASS_NAME))
-        {
-            return javaClass.CallStatic<string>(FUNC_NAME_INIT);
-        }
+        return s_javaClass.CallStatic<string>(FUNC_NAME_INIT);
 #elif UNITY_IOS
         return _init();
 #else
@@ -47,10 +47,7 @@ public static class Bluetooth
     public static bool Connect(string deviceName)
     {
 #if UNITY_ANDROID
-        using (AndroidJavaClass javaClass = new AndroidJavaClass(JAVA_CLASS_NAME))
-        {
-           return javaClass.CallStatic<bool>(FUNC_NAME_CONNECT, deviceName);
-        }
+        return s_javaClass.CallStatic<bool>(FUNC_NAME_CONNECT, deviceName);
 #elif UNITY_IOS
         return false;
 #else
@@ -65,10 +62,7 @@ public static class Bluetooth
     public static bool Write(byte[] buffer)
     {
 #if UNITY_ANDROID
-        using (AndroidJavaClass javaClass = new AndroidJavaClass(JAVA_CLASS_NAME))
-        {
-            return javaClass.CallStatic<bool>(FUNC_NAME_WRITE, buffer);
-        }
+        return s_javaClass.CallStatic<bool>(FUNC_NAME_WRITE, buffer);
 #elif UNITY_IOS
         return false;
 #else
@@ -76,13 +70,21 @@ public static class Bluetooth
 #endif
     }
 
+    public static byte[] Read(int bufferSize)
+    {
+#if UNITY_ANDROID
+        return s_javaClass.CallStatic<byte[]>(FUNC_NAME_READ, bufferSize);
+#elif UNITY_IOS
+        return null;
+#else
+        return null;
+#endif
+    }
+
     public static void Close()
     {
 #if UNITY_ANDROID
-        using (AndroidJavaClass javaClass = new AndroidJavaClass(JAVA_CLASS_NAME))
-        {
-            javaClass.CallStatic(FUNC_NAME_CLOSE);
-        }
+        s_javaClass.CallStatic(FUNC_NAME_CLOSE);
 #elif UNITY_IOS
 
 #endif

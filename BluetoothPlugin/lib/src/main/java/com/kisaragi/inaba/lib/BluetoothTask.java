@@ -63,6 +63,11 @@ public class BluetoothTask
         return getInstance()._write(buf);
     }
 
+    public static byte[] read(int bufferSize)
+    {
+        return getInstance()._read(bufferSize);
+    }
+
     public static void close()
     {
         getInstance()._close();
@@ -197,5 +202,20 @@ public class BluetoothTask
         {
             e.printStackTrace();
         }
+    }
+
+    private byte[] _read(int bufferSize)
+    {
+        byte[] buffer = new byte[bufferSize];
+        try
+        {
+            m_btIn.read(buffer, 0, bufferSize);
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+
+        return buffer;
     }
 }
